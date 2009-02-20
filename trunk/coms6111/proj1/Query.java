@@ -5,8 +5,12 @@ import java.io.*;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class Query {
+	private static Log log = LogFactory.getLog(Query.class);
+	
 	public final String appid = "8ZdPHgrV34GqaKRLc2FEMULwfYT9_rn1xE0swnm6JcfB_IflTBEdzba7HAuPJcDwGA--";
 	public final int numResults = 10;
 	
@@ -69,23 +73,13 @@ public class Query {
 	    	System.err.println(e.getLocalizedMessage());
 	    	return null;
 	    }
-	    
-	    /********/
-	    /* XXX DEBUG */
-        // Process the response from Yahoo! Web Services
-        BufferedReader br = new BufferedReader(new InputStreamReader(rstream));
-        String line;
-        try {
-	        while ((line = br.readLine()) != null) {
-	            System.out.println(line);
-	        }
-	        br.close();
-        } catch (IOException e) {
-        	System.err.println(e.getLocalizedMessage());
-        }
-        /*******/
 
-	    return new Resultset(rstream);
+	    try {
+	    	return new Resultset(rstream);
+	    } catch (Exception e) {
+	    	log.warn("Error creating Resultset from result stream");
+	    	return null;
+	    }
 	}
 
 	public String getString() {
