@@ -18,6 +18,11 @@ public class Runner {
 		System.out.println("Hi please enter a query:");
 		Scanner in = new Scanner(System.in);
 		userQuery = new Query(in.nextLine());
+
+		/**********/
+		/* XXX DEBUG */
+		userQuery.execute();
+		System.exit(0);
 		
 		// FIXME set queryExpander to an instance of a class
 		queryExpander = null;
