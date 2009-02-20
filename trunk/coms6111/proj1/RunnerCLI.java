@@ -2,7 +2,10 @@ package coms6111.proj1;
 
 import java.util.Scanner;
 
-public class Runner {
+/**
+ * Command-line interface version of the Runner
+ */
+public class RunnerCLI {
 	
 	private static Query userQuery;
 	private static Resultset resultset;
