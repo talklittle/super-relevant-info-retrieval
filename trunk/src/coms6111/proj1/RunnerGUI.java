@@ -31,6 +31,25 @@ public class RunnerGUI extends JFrame {
 		super(title);
 	}
 	
+	public void executeCurrentQuery() {
+		log.info("Executing query " + currentQuery.toString());
+		Resultset rs = currentQuery.execute();
+		if (rs == null) {
+			log.error("Error executing query. Please wait a few moments and try again.");
+			JOptionPane.showMessageDialog(null,
+					"Error executing query. Please wait a few moments and try again.",
+					"Error executing query", JOptionPane.ERROR_MESSAGE);
+		} else {
+			log.info("" + rs.getSize() + " results.");
+			log.info("Target precision "
+					+ targetPrecisionSpinner.getValue()
+					+ " = " 
+					+ (int)(((Double)targetPrecisionSpinner.getValue())*rs.getSize())
+					+ " results");
+			setResultset(rs);
+		}
+	}
+	
 	public void setResultset(Resultset rs) {
 		Iterator<Result> it = rs.getIterator();
 		int i = 0;
@@ -88,35 +107,42 @@ public class RunnerGUI extends JFrame {
 			
 			i++;
 		}
+		
 		JButton expandButton = new JButton("Expand query & Refine results");
 		expandButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Result> relevantResults = new ArrayList<Result>();
 				Iterator<JCheckBox> itCb = cbList.iterator();
 				Iterator<Result> itR = visibleResultset.getIterator();
+				
 				int i = 1;
 				while (itCb.hasNext() && itR.hasNext()) {
 					JCheckBox cb = itCb.next();
 					Result r = itR.next();
 					if (cb.isSelected()) {
-						System.out.println("Added relevant result #" + i);
+						log.info("Added relevant result #" + i);
 						relevantResults.add(r);
 					}
 					i++;
 				}
-				currentQuery = qe.apply(currentQuery, new Resultset(relevantResults));
 				
-				// execute the expanded query
-				log.info("Executing query " + currentQuery.toString());
-				Resultset rs = currentQuery.execute();
-				if (rs == null) {
-					log.error("Error executing query. Please wait a few moments and try again.");
+				// Stop if target precision reached
+				log.debug("" + (double)relevantResults.size()
+						/ (double)visibleResultset.getSize());
+				if ((double) relevantResults.size()
+						/ (double)visibleResultset.getSize()
+						>= (Double)targetPrecisionSpinner.getValue()) {
+					log.info("Desired precision reached.");
 					JOptionPane.showMessageDialog(null,
-							"Error executing query. Please wait a few moments and try again.",
-							"Error executing query", JOptionPane.ERROR_MESSAGE);
-				} else {
-					setResultset(rs);
+							"Your desired precision was reached!");
+					return;
 				}
+				
+				// Expand current query
+				currentQuery = qe.apply(currentQuery,
+						new Resultset(relevantResults));
+				// Execute the expanded query
+				executeCurrentQuery();
 			}
 		});
 		c.fill = GridBagConstraints.NONE;
@@ -230,7 +256,7 @@ public class RunnerGUI extends JFrame {
         if (editor instanceof JSpinner.DefaultEditor) {
             return ((JSpinner.DefaultEditor)editor).getTextField();
         } else {
-            System.err.println("Unexpected editor type: "
+            log.error("Unexpected editor type: "
                                + spinner.getEditor().getClass()
                                + " isn't a descendant of DefaultEditor");
             return null;
@@ -240,15 +266,7 @@ public class RunnerGUI extends JFrame {
 	private class QueryActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			currentQuery = new Query(queryTextField.getText());
-			Resultset rs = currentQuery.execute();
-			if (currentQuery == null) {
-				log.error("Error executing query. Please wait a few moments and try again.");
-				JOptionPane.showMessageDialog(null,
-						"Error executing query. Please wait a few moments and try again.",
-						"Error executing query", JOptionPane.ERROR_MESSAGE);
-			} else {
-				setResultset(rs);
-			}
+			executeCurrentQuery();
 		}
 	}
 

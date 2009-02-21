@@ -41,11 +41,11 @@ public class Query {
 	    try {
 	    	int statusCode = client.executeMethod(method);
 	        if (statusCode != HttpStatus.SC_OK) {
-	        	System.err.println("Method failed: " + method.getStatusLine());
+	        	log.error("Method failed: " + method.getStatusLine());
 	        	return null;
 	        }
 	    } catch (IOException e) {
-	    	System.err.println(e.getLocalizedMessage());
+	    	log.error(e.getLocalizedMessage());
 	    	return null;
 	    }
 
@@ -55,7 +55,7 @@ public class Query {
 	    try {
 	    	rstream = method.getResponseBodyAsStream();
 	    } catch (IOException e) {
-	    	System.err.println(e.getLocalizedMessage());
+	    	log.error(e.getLocalizedMessage());
 	    	return null;
 	    }
 
