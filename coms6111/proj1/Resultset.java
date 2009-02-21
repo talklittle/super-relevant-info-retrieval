@@ -17,9 +17,16 @@ import org.w3c.dom.*;
 public class Resultset {
 	private static Log log = LogFactory.getLog(Resultset.class);
 	
-	private Query myQuery;
 	private List<Result> myResults;
 	private int resultSize;
+	
+	public Resultset(List<Result> results) {
+		myResults = results;
+		if (results != null)
+			resultSize = results.size();
+		else
+			resultSize = 0;
+	}
 	
 	/**
 	 * Constructor using input stream returned from HttpClient
@@ -35,6 +42,7 @@ public class Resultset {
 		int nodeCount = nodes.getLength();
         
 		myResults = new ArrayList<Result>();
+		resultSize = 0;
 		//iterate over search Result nodes
 		for (int i = 0; i < nodeCount; i++) {
 			//Get each xpath expression as a string
@@ -48,6 +56,7 @@ public class Resultset {
 			log.trace("--");
 			
 			myResults.add(new Result(title, summary, url));
+			resultSize++;
 		}
 	}
 	
