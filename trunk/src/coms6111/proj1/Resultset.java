@@ -50,10 +50,11 @@ public class Resultset {
 			String summary = (String)xPath.evaluate("Summary", nodes.item(i), XPathConstants.STRING);
 			String url = (String)xPath.evaluate("Url", nodes.item(i), XPathConstants.STRING);
 			//print out the Title, Summary, and URL for each search result
-			log.trace("Title: " + title);
-			log.trace("Summary: " + summary);
-			log.trace("URL: " + url);
-			log.trace("--");
+			log.info("-- Result " + (i+1));
+			log.info("Title: " + title);
+			log.info("Summary: " + summary);
+			log.info("URL: " + url);
+			log.info("--");
 			
 			myResults.add(new Result(title, summary, url));
 			resultSize++;
