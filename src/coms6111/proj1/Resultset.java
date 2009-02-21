@@ -67,4 +67,8 @@ public class Resultset {
 	public ListIterator<Result> getListIterator() {
 		return myResults.listIterator();
 	}
+	
+	public int getSize() {
+		return resultSize;
+	}
 }
