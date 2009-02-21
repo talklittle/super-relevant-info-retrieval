@@ -13,9 +13,9 @@ public class RunnerGUI extends JFrame {
 	protected static final Log log = LogFactory.getLog(RunnerGUI.class);
 	private static RunnerGUI frame;
 	
-	private JLabel queryLabel;
 	private JTextField queryTextField;
-	private JButton queryButton;
+	private JSpinner targetPrecisionSpinner;
+	private JButton submitButton;
 	private JButton aboutButton;
 	private JButton exitButton;
 	
@@ -76,30 +76,74 @@ public class RunnerGUI extends JFrame {
 		JPanel inputPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		queryLabel = new JLabel("Your query: ");
+		queryTextField = new JTextField(50);
+		queryTextField.addActionListener(new QueryActionListener());
 		c.fill = GridBagConstraints.HORIZONTAL;
+		c.gridx = 1;
+		c.gridy = 0;
+		inputPanel.add(queryTextField, c);
+		
+		JLabel queryLabel = new JLabel("Your query: ");
+		queryLabel.setLabelFor(queryTextField);
 		c.gridx = 0;
 		c.gridy = 0;
 		inputPanel.add(queryLabel, c);
 		
-		// TODO add ActionListener
-		queryTextField = new JTextField(50);
+		// the Spinner control for picking target precision
+		SpinnerModel targetPrecisionModel = new SpinnerNumberModel(0.5, //initial value
+                                       0.0, //min
+                                       1.0, //max
+                                       0.05);                //step
+		targetPrecisionSpinner = new JSpinner(targetPrecisionModel);
+		JFormattedTextField ftf = null;
+        ftf = getTextField(targetPrecisionSpinner);
+        if (ftf != null ) {
+            ftf.setColumns(4);
+            ftf.setHorizontalAlignment(JTextField.RIGHT);
+        }
+//		targetPrecisionSpinner.setEditor(new JSpinner.NumberEditor(targetPrecisionSpinner, "#.##"));
+        c.gridx = 3;
+        c.gridy = 0;
+        inputPanel.add(targetPrecisionSpinner, c);
+        
+        JLabel targetPrecisionLabel = new JLabel("Precision:");
+        targetPrecisionLabel.setLabelFor(targetPrecisionSpinner);
+        c.gridx = 2;
+        c.gridy = 0;
+        inputPanel.add(targetPrecisionLabel, c);
+		
+		// Submit button
+        submitButton = new JButton("Submit");
+		submitButton.addActionListener(new QueryActionListener());
 		c.fill = GridBagConstraints.NONE;
+		c.gridwidth = 2;
 		c.gridx = 1;
-		c.gridy = 0;
-		queryLabel.setLabelFor(queryTextField);
-		inputPanel.add(queryTextField, c);
+		c.gridy = 1;
+		inputPanel.add(submitButton, c);
 		
-		queryButton = new JButton("Submit");
-		queryButton.addActionListener(new QueryActionListener());
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.gridx = 2;
-		c.gridy = 0;
-		inputPanel.add(queryButton, c);
-		
-		// TODO add ActionListeners
+		// Other buttons -- "About" and "Exit"
+		JPanel otherPanel = new JPanel();
 		JButton aboutButton = new JButton("About");
+		aboutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,
+						"Authors:\n"
+						+ "Ran Bi <rb2651@columbia.edu>\n"
+						+ "Andrew Shu <ans2120@columbia.edu>\n\n"
+						+ "Columbia University\n"
+						+ "COMS 6111: Advanced Database Systems\n"
+						+ "Spring 2009");
+			}
+		});
+		otherPanel.add(aboutButton);
+		
 		JButton exitButton = new JButton("Exit");
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		otherPanel.add(exitButton);
 		
 		resultsPanel = new JPanel(new GridBagLayout());
 		
@@ -108,11 +152,28 @@ public class RunnerGUI extends JFrame {
 		content.setLayout(new BorderLayout());
 		content.add(inputPanel, BorderLayout.NORTH);
 		content.add(resultsPanel, BorderLayout.CENTER);
+		content.add(otherPanel, BorderLayout.SOUTH);
 
 		this.pack();
 		this.setVisible(true);
 	}
-	
+
+	/**
+     * Return the formatted text field used by the editor, or
+     * null if the editor doesn't descend from JSpinner.DefaultEditor.
+     */
+    public JFormattedTextField getTextField(JSpinner spinner) {
+        JComponent editor = spinner.getEditor();
+        if (editor instanceof JSpinner.DefaultEditor) {
+            return ((JSpinner.DefaultEditor)editor).getTextField();
+        } else {
+            System.err.println("Unexpected editor type: "
+                               + spinner.getEditor().getClass()
+                               + " isn't a descendant of DefaultEditor");
+            return null;
+        }
+    }
+
 	private class QueryActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			Query q = new Query(queryTextField.getText());
