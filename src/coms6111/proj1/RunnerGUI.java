@@ -94,17 +94,23 @@ public class RunnerGUI extends JFrame {
 				List<Result> relevantResults = new ArrayList<Result>();
 				Iterator<JCheckBox> itCb = cbList.iterator();
 				Iterator<Result> itR = visibleResultset.getIterator();
+				int i = 1;
 				while (itCb.hasNext() && itR.hasNext()) {
 					JCheckBox cb = itCb.next();
 					Result r = itR.next();
-					if (cb.isSelected())
+					if (cb.isSelected()) {
+						System.out.println("Added relevant result #" + i);
 						relevantResults.add(r);
+					}
+					i++;
 				}
 				currentQuery = qe.apply(currentQuery, new Resultset(relevantResults));
 				
 				// execute the expanded query
+				log.info("Executing query " + currentQuery.toString());
 				Resultset rs = currentQuery.execute();
 				if (rs == null) {
+					log.error("Error executing query. Please wait a few moments and try again.");
 					JOptionPane.showMessageDialog(null,
 							"Error executing query. Please wait a few moments and try again.",
 							"Error executing query", JOptionPane.ERROR_MESSAGE);
@@ -236,6 +242,7 @@ public class RunnerGUI extends JFrame {
 			currentQuery = new Query(queryTextField.getText());
 			Resultset rs = currentQuery.execute();
 			if (currentQuery == null) {
+				log.error("Error executing query. Please wait a few moments and try again.");
 				JOptionPane.showMessageDialog(null,
 						"Error executing query. Please wait a few moments and try again.",
 						"Error executing query", JOptionPane.ERROR_MESSAGE);
@@ -248,7 +255,7 @@ public class RunnerGUI extends JFrame {
 	public static void main(String[] args) {
 		frame = new RunnerGUI("Super Relevant Info Retrieval");
 		frame.init();
-		
+
 		// TODO Allow user to specify the algorithm for query expansion
 		//      Aside from cmdline args, have drop-down list
 //		qe = new VectorFreqQueryExpander();

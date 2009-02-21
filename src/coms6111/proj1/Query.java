@@ -67,8 +67,8 @@ public class Query {
 	    }
 	}
 
-	public String getString() {
-		return myQueryString;
+	public String toString() {
+		return "[" + myQueryString + "]";
 	}
 	
 	public int getIteration() {
