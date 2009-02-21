@@ -4,11 +4,14 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
+import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class RunnerGUI extends JFrame {
+	static final long serialVersionUID = 8; // SVN rev
 	
 	protected static final Log log = LogFactory.getLog(RunnerGUI.class);
 	private static RunnerGUI frame;
@@ -16,11 +19,13 @@ public class RunnerGUI extends JFrame {
 	private JTextField queryTextField;
 	private JSpinner targetPrecisionSpinner;
 	private JButton submitButton;
-	private JButton aboutButton;
-	private JButton exitButton;
 	
 	private JPanel resultsPanel;
+	private Query currentQuery;
 	private Resultset visibleResultset;
+	private List<JCheckBox> cbList; // Use this to get at the relevant Results
+	
+	private QueryExpander qe;
 	
 	public RunnerGUI(String title) {
 		super(title);
@@ -31,39 +36,91 @@ public class RunnerGUI extends JFrame {
 		int i = 0;
 		
 		visibleResultset = rs;
+		cbList = new ArrayList<JCheckBox>();
 		
 		// Add the Resultset to the GUI
 		resultsPanel.removeAll();
 		GridBagConstraints c = new GridBagConstraints();
 		while (it.hasNext()) {
 			Result r = (Result) it.next();
+			Color bgcolor;
+			if ((i & 0x1) == 0)
+				bgcolor = Color.decode("0xe7e7e7");
+			else
+				bgcolor = Color.WHITE;
 			
-			// TODO associate the checkbox with the Result somehow
 			JCheckBox cb = new JCheckBox();
+			cbList.add(cb);
+			cb.setText(""+(i+1));
+			cb.setBackground(bgcolor);
 			cb.setSelected(true);
+			c.fill = GridBagConstraints.BOTH;
 			c.gridx = 0;
 			c.gridy = i;
 			resultsPanel.add(cb, c);
 			
-			JLabel titleLabel = new JLabel(r.title);
+			JLabel titleLabel = 
+				new JLabel(StringEscapeUtils.unescapeHtml(r.title));
+			titleLabel.setBackground(bgcolor);
+			titleLabel.setOpaque(true);
 			c.gridx = 1;
 			c.gridy = i;
 			resultsPanel.add(titleLabel, c);
 			
-			JTextArea summaryTextArea = new JTextArea(r.summary);
+			JTextArea summaryTextArea =
+				new JTextArea(StringEscapeUtils.unescapeHtml(r.summary));
+			summaryTextArea.setBackground(bgcolor);
 			summaryTextArea.setEditable(false);
+			summaryTextArea.setWrapStyleWord(true);
+			summaryTextArea.setLineWrap(true);
+			summaryTextArea.setColumns(40);
 			c.gridx = 2;
 			c.gridy = i;
 			resultsPanel.add(summaryTextArea, c);
 			
 			// TODO make this clickable
 			JLabel urlLabel = new JLabel(r.url.toExternalForm());
+			urlLabel.setBackground(bgcolor);
+			urlLabel.setOpaque(true);
 			c.gridx = 3;
 			c.gridy = i;
 			resultsPanel.add(urlLabel, c);
 			
 			i++;
 		}
+		JButton expandButton = new JButton("Expand query & Refine results");
+		expandButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				List<Result> relevantResults = new ArrayList<Result>();
+				Iterator<JCheckBox> itCb = cbList.iterator();
+				Iterator<Result> itR = visibleResultset.getIterator();
+				while (itCb.hasNext() && itR.hasNext()) {
+					JCheckBox cb = itCb.next();
+					Result r = itR.next();
+					if (cb.isSelected())
+						relevantResults.add(r);
+				}
+				currentQuery = qe.apply(currentQuery, new Resultset(relevantResults));
+				
+				// execute the expanded query
+				Resultset rs = currentQuery.execute();
+				if (rs == null) {
+					JOptionPane.showMessageDialog(null,
+							"Error executing query. Please wait a few moments and try again.",
+							"Error executing query", JOptionPane.ERROR_MESSAGE);
+				} else {
+					setResultset(rs);
+				}
+			}
+		});
+		c.fill = GridBagConstraints.NONE;
+		c.gridx = 0;
+		c.gridy = i;
+		c.gridwidth = 4;
+		resultsPanel.add(expandButton, c);
+	
+		frame.pack();
+		frame.pack(); // http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6223727
 	}
 	
 	/**
@@ -76,7 +133,7 @@ public class RunnerGUI extends JFrame {
 		JPanel inputPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 		
-		queryTextField = new JTextField(50);
+		queryTextField = new JTextField(40);
 		queryTextField.addActionListener(new QueryActionListener());
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 1;
@@ -93,7 +150,7 @@ public class RunnerGUI extends JFrame {
 		SpinnerModel targetPrecisionModel = new SpinnerNumberModel(0.5, //initial value
                                        0.0, //min
                                        1.0, //max
-                                       0.05);                //step
+                                       0.1);                //step
 		targetPrecisionSpinner = new JSpinner(targetPrecisionModel);
 		JFormattedTextField ftf = null;
         ftf = getTextField(targetPrecisionSpinner);
@@ -101,7 +158,7 @@ public class RunnerGUI extends JFrame {
             ftf.setColumns(4);
             ftf.setHorizontalAlignment(JTextField.RIGHT);
         }
-//		targetPrecisionSpinner.setEditor(new JSpinner.NumberEditor(targetPrecisionSpinner, "#.##"));
+		
         c.gridx = 3;
         c.gridy = 0;
         inputPanel.add(targetPrecisionSpinner, c);
@@ -176,10 +233,15 @@ public class RunnerGUI extends JFrame {
 
 	private class QueryActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			Query q = new Query(queryTextField.getText());
-			Resultset rs = q.execute();
-			setResultset(rs);
-			frame.pack();
+			currentQuery = new Query(queryTextField.getText());
+			Resultset rs = currentQuery.execute();
+			if (currentQuery == null) {
+				JOptionPane.showMessageDialog(null,
+						"Error executing query. Please wait a few moments and try again.",
+						"Error executing query", JOptionPane.ERROR_MESSAGE);
+			} else {
+				setResultset(rs);
+			}
 		}
 	}
 
@@ -187,5 +249,8 @@ public class RunnerGUI extends JFrame {
 		frame = new RunnerGUI("Super Relevant Info Retrieval");
 		frame.init();
 		
+		// TODO Allow user to specify the algorithm for query expansion
+		//      Aside from cmdline args, have drop-down list
+//		qe = new VectorFreqQueryExpander();
 	}
 }

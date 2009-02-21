@@ -26,21 +26,6 @@ public class Query {
 		myIteration = iteration;
 	}
 	
-	/**
-	 * Apply a query expansion to the current query
-	 * Return a new expanded query
-	 * 
-	 * @param qe An implementation of a QueryExpander
-	 * @return Newly expanded query
-	 */
-	public Query applyExpansion(QueryExpander qe) {
-		String newQueryString = myQueryString;
-		
-		// TODO apply qe
-		
-		return new Query(newQueryString, myIteration + 1);
-	}
-	
 	public Resultset execute() {
 		String request = "http://api.search.yahoo.com/WebSearchService/V1/webSearch";
 	    HttpClient client = new HttpClient();
@@ -86,7 +71,15 @@ public class Query {
 		return myQueryString;
 	}
 	
+	public int getIteration() {
+		return myIteration;
+	}
+	
 	public void setString(String queryString) {
 		myQueryString = queryString;
+	}
+	
+	public void setIteration(int iteration) {
+		myIteration = iteration;
 	}
 }
