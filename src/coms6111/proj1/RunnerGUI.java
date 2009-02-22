@@ -11,7 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class RunnerGUI extends JFrame {
-	static final long serialVersionUID = 8; // SVN rev
+	static final long serialVersionUID = 10; // SVN rev
 	
 	protected static final Log log = LogFactory.getLog(RunnerGUI.class);
 	private static RunnerGUI frame;
@@ -20,6 +20,7 @@ public class RunnerGUI extends JFrame {
 	private JSpinner targetPrecisionSpinner;
 	private JButton submitButton;
 	
+	private JScrollPane resultsScrollPane;
 	private JPanel resultsPanel;
 	private Query currentQuery;
 	private Resultset visibleResultset;
@@ -78,13 +79,17 @@ public class RunnerGUI extends JFrame {
 			c.gridy = i;
 			resultsPanel.add(cb, c);
 			
-			JLabel titleLabel = 
-				new JLabel(StringEscapeUtils.unescapeHtml(r.title));
-			titleLabel.setBackground(bgcolor);
-			titleLabel.setOpaque(true);
+			JTextArea titleTextArea = 
+				new JTextArea(StringEscapeUtils.unescapeHtml(r.title));
+			titleTextArea.setEditable(false);
+			titleTextArea.setFont(new Font(null, Font.BOLD, 12));
+			titleTextArea.setWrapStyleWord(true);
+			titleTextArea.setLineWrap(true);
+			titleTextArea.setBackground(bgcolor);
+			titleTextArea.setOpaque(true);
 			c.gridx = 1;
 			c.gridy = i;
-			resultsPanel.add(titleLabel, c);
+			resultsPanel.add(titleTextArea, c);
 			
 			JTextArea summaryTextArea =
 				new JTextArea(StringEscapeUtils.unescapeHtml(r.summary));
@@ -98,12 +103,16 @@ public class RunnerGUI extends JFrame {
 			resultsPanel.add(summaryTextArea, c);
 			
 			// TODO make this clickable
-			JLabel urlLabel = new JLabel(r.url.toExternalForm());
-			urlLabel.setBackground(bgcolor);
-			urlLabel.setOpaque(true);
+			JTextArea urlTextArea = new JTextArea(r.url.toExternalForm());
+			urlTextArea.setBackground(bgcolor);
+			urlTextArea.setEditable(false);
+			urlTextArea.setFont(new Font(null, Font.BOLD, 12));
+			urlTextArea.setLineWrap(true);
+			urlTextArea.setOpaque(true);
+			urlTextArea.setColumns(20);
 			c.gridx = 3;
 			c.gridy = i;
-			resultsPanel.add(urlLabel, c);
+			resultsPanel.add(urlTextArea, c);
 			
 			i++;
 		}
@@ -235,12 +244,14 @@ public class RunnerGUI extends JFrame {
 		otherPanel.add(exitButton);
 		
 		resultsPanel = new JPanel(new GridBagLayout());
+		resultsScrollPane = new JScrollPane();
+		resultsScrollPane.setViewportView(resultsPanel);
 		
 		// Add stuff to container
 		Container content = this.getContentPane();
 		content.setLayout(new BorderLayout());
 		content.add(inputPanel, BorderLayout.NORTH);
-		content.add(resultsPanel, BorderLayout.CENTER);
+		content.add(resultsScrollPane, BorderLayout.CENTER);
 		content.add(otherPanel, BorderLayout.SOUTH);
 
 		this.pack();
