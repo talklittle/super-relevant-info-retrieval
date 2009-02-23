@@ -28,10 +28,20 @@ public class RunnerGUI extends JFrame {
 	
 	private QueryExpander qe;
 	
+	/**
+	 * Constructor.
+	 * @param title Titlebar text
+	 */
 	public RunnerGUI(String title) {
 		super(title);
+		// TODO Allow user to specify the algorithm for query expansion
+		//      Aside from cmdline args, have drop-down list?
+//		qe = new TermFrequencyQueryExpander();
 	}
-	
+
+	/**
+	 * Execute the query stored in variable currentQuery and update visible Resultset 
+	 */
 	public void executeCurrentQuery() {
 		log.info("Executing query " + currentQuery.toString());
 		Resultset rs = currentQuery.execute();
@@ -51,6 +61,10 @@ public class RunnerGUI extends JFrame {
 		}
 	}
 	
+	/**
+	 * Update the visible Resultset
+	 * @param rs New Resultset to replace current one
+	 */
 	public void setResultset(Resultset rs) {
 		Iterator<Result> it = rs.getIterator();
 		int i = 0;
@@ -274,6 +288,9 @@ public class RunnerGUI extends JFrame {
         }
     }
 
+    /**
+     * Listener for pressing return or button click. Executes query.
+     */
 	private class QueryActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			currentQuery = new Query(queryTextField.getText());
@@ -281,12 +298,12 @@ public class RunnerGUI extends JFrame {
 		}
 	}
 
+	/**
+	 * Main entrypoint.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		frame = new RunnerGUI("Super Relevant Info Retrieval");
 		frame.init();
-
-		// TODO Allow user to specify the algorithm for query expansion
-		//      Aside from cmdline args, have drop-down list
-//		qe = new VectorFreqQueryExpander();
 	}
 }

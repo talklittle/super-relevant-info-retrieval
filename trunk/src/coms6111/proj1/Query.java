@@ -67,18 +67,33 @@ public class Query {
 	    }
 	}
 
+	/**
+	 * Return the queryString enclosed by square brackets.
+	 */
 	public String toString() {
 		return "[" + myQueryString + "]";
 	}
 	
+	/**
+	 * Return the number of times the Query has been expanded.
+	 * @return The number of times the Query has been expanded
+	 */
 	public int getIteration() {
 		return myIteration;
 	}
 	
+	/**
+	 * Set the string of the query.
+	 * @param queryString The String of the Query
+	 */
 	public void setString(String queryString) {
 		myQueryString = queryString;
 	}
 	
+	/**
+	 * Set the number of times this Query has been expanded.
+	 * @param iteration The number of times this Query has been expanded
+	 */
 	public void setIteration(int iteration) {
 		myIteration = iteration;
 	}

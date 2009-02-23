@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.*;
 
 /**
- * A Resultset from search engine
+ * A Resultset either from search engine or manually created.
  */
 public class Resultset {
 	private static Log log = LogFactory.getLog(Resultset.class);
@@ -61,13 +61,25 @@ public class Resultset {
 		}
 	}
 	
+	/**
+	 * Get an in-order Iterator for the Resultset.
+	 * @return An in-order Iterator for the Resultset.
+	 */
 	public Iterator<Result> getIterator() {
 		return myResults.iterator();
 	}
+	/**
+	 * Get an in-order ListIterator for the Resultset.
+	 * @return An in-order ListIterator for the Resultset.
+	 */
 	public ListIterator<Result> getListIterator() {
 		return myResults.listIterator();
 	}
 	
+	/**
+	 * Return the number of results.
+	 * @return The number of results contained in this Resultset.
+	 */
 	public int getSize() {
 		return resultSize;
 	}
