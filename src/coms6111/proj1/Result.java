@@ -15,6 +15,12 @@ public class Result {
 	public String title, summary;
 	public URL url;
 	
+	/**
+	 * Constructor.
+	 * @param theTitle Title of a search engine result.
+	 * @param theSummary Summary text of a search engine result.
+	 * @param theUrl URL returned by search engine for this result.
+	 */
 	public Result(String theTitle, String theSummary, String theUrl) {
 		title = theTitle;
 		summary = theSummary;

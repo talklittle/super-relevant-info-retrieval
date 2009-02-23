@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="src/lib/commons-logging-1.1.1/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="src/lib/commons-lang-2.4/commons-lang-2.4.jar"/>
 	<classpathentry kind="lib" path="src/lib/apache-log4j-1.2.15/log4j-1.2.15.jar"/>
+	<classpathentry kind="lib" path="src/lib/lucene-2.4.0/lucene-core-2.4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
