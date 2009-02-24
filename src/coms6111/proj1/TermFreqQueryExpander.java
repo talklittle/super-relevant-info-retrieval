@@ -3,6 +3,7 @@ package coms6111.proj1;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -22,15 +23,21 @@ public class TermFreqQueryExpander implements QueryExpander {
 	public Query apply(Query query, Resultset relevantResultset,
 			Resultset nonrelevantResultset) {
 		
+		Query returnMe;
 		Directory relevantIndex, nonrelevantIndex;
 		relevantIndex = createIndex(relevantResultset);
 		nonrelevantIndex = createIndex(nonrelevantResultset);
 		
-		String[] top2Terms =
+		Term[] top2Terms =
 			selectTerms(relevantIndex, nonrelevantIndex);
-		addTermsToQuery()
+		returnMe = addTermsToQuery(query, top2Terms);
 		
-		directory.close();
+		try {
+			relevantIndex.close();
+			nonrelevantIndex.close();
+		} catch (IOException e) {
+			log.error("Error closing Directory", e);
+		}
 		
 	    return null;
 	}
@@ -61,25 +68,55 @@ public class TermFreqQueryExpander implements QueryExpander {
 		}
 	}
 	
-	private String[] selectTerm(Directory relevantIndex,
+	private Query addTermsToQuery(Query query, Term[] terms,
+			Directory relevantIndex) {
+		IndexReader ireader;
+		
+		try {
+			ireader = IndexReader.open(relevantIndex);
+			TermPositions tp = ireader.termPositions);
+			
+		} catch (IOException e) {
+			log.error(e);
+		}
+	}
+	
+	private Term[] selectTerms(Query query,
+			Directory relevantIndex,
 			Directory nonrelevantIndex) {
 		
-		String[] top2Terms = new String[2];
+		Term[] top2Terms = new Term[2];
 	    
 		TermFreqQEVector[] relevantTfqeVectors =
 			computeTermFrequencies(relevantIndex);
 		TermFreqQEVector[] nonrelevantTfqeVectors =
 			computeTermFrequencies(nonrelevantIndex);
 	    
-		ArrayList<TermFreqQEVector> combinedTfqeVectors
-			= combineTfqeVectors(relevantTfqeVector, nonrelevantTfqeVector);
+		TermFreqQEVector[] combinedTfqeVectors
+			= combineTfqeVectors(relevantTfqeVectors, nonrelevantTfqeVectors);
 		
-		
-		
-		Arrays.sort(relevantTf)
-	 
-		
-		
+		Arrays.sort(combinedTfqeVectors);
+		int topNthTerm = 0;
+		boolean alreadyInQuery;
+		Iterator<String> queryIterator;
+		// Go through the sorted list of relevant terms to find top 2
+		for (int i = 0; i < combinedTfqeVectors.length; i++) {
+			queryIterator = query.iterator();
+			alreadyInQuery = false;
+			// Exclude terms that are already in old query
+			while (queryIterator.hasNext()) {
+				String queryTerm = queryIterator.next();
+				if (queryTerm.equals(combinedTfqeVectors[i].term.text())) {
+					alreadyInQuery = true;
+					break;
+				}
+			}
+			if (alreadyInQuery)
+				continue;
+			top2Terms[topNthTerm++] = combinedTfqeVectors[i].term;
+			if (topNthTerm >= 2)
+				break;
+		}
 		
 		return top2Terms;
 	}
@@ -88,17 +125,21 @@ public class TermFreqQueryExpander implements QueryExpander {
 			TermFreqQEVector[] relevantTfqeVectors,
 			TermFreqQEVector[] nonrelevantTfqeVectors) {
 		
-		// FIXME
-		for (int i = 0; i< relevantTfqeVectors.length; i++)
-			for (int j=0 ; j< nonrelevantTfqeVectors.length; j++)
-		nonrelevantTfqeVectors[j].freq1=(-1)*nonrelevantTfqeVectors[j].freq1;
-		if (relevantTfqeVectors[i].term=nonrelevantTfqeVectors[j].term){
-			relevantTfqeVectors[i].freq1=relevantTfqeVectors[i].freq1+nonrelevantTfqeVectors[j].freq1;}
-		return TermFreqQEVector[];
+		for (int i = 0; i < nonrelevantTfqeVectors.length; i++) {
+			nonrelevantTfqeVectors[i].freq1=(-1)*nonrelevantTfqeVectors[i].freq1;
+		}
 		
-		
-		
+		for (int i = 0; i< relevantTfqeVectors.length; i++) {
+			for (int j=0 ; j< nonrelevantTfqeVectors.length; j++) {
+				// decrease term freq by # of times it appears in nonrel docs
+				if (relevantTfqeVectors[i].term.equals(nonrelevantTfqeVectors[j].term)){
+					relevantTfqeVectors[i].freq1=relevantTfqeVectors[i].freq1+nonrelevantTfqeVectors[j].freq1;
+				}
+			}
+		}
+		return relevantTfqeVectors;
 	}
+		
 	
 	
 	private TermFreqQEVector[] computeTermFrequencies(Directory index) {
@@ -111,7 +152,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 			do {
 				TermFreqQEVector tfqeVector = new TermFreqQEVector();
 				Term currTerm = allTerms.term();
-				tfqeVector.term = allTerms.term().text();
+				tfqeVector.term = allTerms.term();
 				tfqeVector.freq1 = ireader.docFreq(currTerm);
 				// Calculate idf
 				tfqeVector.freq2 = 0;
@@ -123,13 +164,13 @@ public class TermFreqQueryExpander implements QueryExpander {
 				tfqevList.add(tfqeVector);
 			} while (allTerms.next());
 			
+			ireader.close();
 			return (TermFreqQEVector[]) tfqevList.toArray();
 			
 		} catch (IOException e) {
 			log.error("Error opening Directory", e);
 			return null;
 		}
-		
 	}
 	
 	
@@ -139,7 +180,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 	 * freq2: idf (sum of tf over all documents)
 	 */
 	private class TermFreqQEVector implements Comparable {
-		public String term;
+		public Term term;
 		public int freq1, freq2;
 		
 		public int compareTo(Object obj) {
