@@ -71,10 +71,54 @@ public class TermFreqQueryExpander implements QueryExpander {
 	private Query addTermsToQuery(Query query, Term[] terms,
 			Directory relevantIndex) {
 		IndexReader ireader;
+		ArrayList<Term> allOurTerms = new ArrayList<Term>();
 		
 		try {
 			ireader = IndexReader.open(relevantIndex);
-			TermPositions tp = ireader.termPositions);
+			ArrayList<TermPositions> tpList = new ArrayList<TermPositions>();
+			Term term1 = terms[0];
+			TermPositions tp1 = ireader.termPositions(term1);      
+			Term term2 = terms[1];
+			TermPositions tp2 = ireader.termPositions(term2);
+			Iterator<String> queryIterator;
+			queryIterator = query.iterator();
+			// Get the term positions for old query
+			while (queryIterator.hasNext()) {
+				String queryWord = queryIterator.next();
+				Term aTerm = new Term("body", queryWord);
+				TermPositions tp = ireader.termPositions(aTerm);
+				tpList.add(tp);
+				allOurTerms.add(aTerm);
+			}
+			tpList.add(tp1);
+			tpList.add(tp2);
+			allOurTerms.add(tp1);
+			allOurTerms.add(tp2);
+			
+			TermPositions[] tpArr = (TermPositions[])tpList.toArray();
+			String newQuery;
+			
+			TermFreqVector bestDoc = 0;
+			int numTermsBestDoc = 0;
+			for (int i = 0; i < ireader.numDocs(); i++) {
+				// pass a document, get all the terms & positions
+				TermFreqVector tfv = ireader.getTermFreqVector(i, "body");
+				int numTermsCurrDoc = 0;
+				for (String s : tfv.getTerms()) {
+					for (Term t : allOurTerms) {
+						if (s.equals(t.text())) {
+							numTermsCurrDoc++;
+						}
+					}
+				}
+				if (numTermsCurrDoc > numTermsBestDoc) {
+					numTermsBestDoc = numTermsCurrDoc;
+					bestDoc = i;
+				}
+			}
+			
+			
+			
 			
 		} catch (IOException e) {
 			log.error(e);
