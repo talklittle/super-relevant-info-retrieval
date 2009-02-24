@@ -1,6 +1,10 @@
 package coms6111.proj1;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -15,13 +19,17 @@ public class Query {
 	public final int numResults = 10;
 	
 	private String myQueryString;
+	private List<String> myQueryStringList; // query string broken into individual terms
 	private int myIteration; // how many times have I been expanded
 	
 	public Query(String queryString) {
-		myQueryString = queryString;
-		myIteration = 0;
+		this(queryString, 0);
 	}
 	public Query(String queryString, int iteration) {
+		StringTokenizer st = new StringTokenizer(queryString);
+		myQueryStringList = new ArrayList<String>();
+		while (st.hasMoreTokens())
+			myQueryStringList.add(st.nextToken());
 		myQueryString = queryString;
 		myIteration = iteration;
 	}
@@ -96,5 +104,21 @@ public class Query {
 	 */
 	public void setIteration(int iteration) {
 		myIteration = iteration;
+	}
+	
+	/**
+	 * Return an Iterator<String> to inspect each query term separately.
+	 * @return Iterator<String>
+	 */
+	public Iterator<String> iterator() {
+		return myQueryStringList.iterator();
+	}
+	
+	/**
+	 * Return the number of terms in the query
+	 * @return int of number of terms in the query
+	 */
+	public int length() {
+		return myQueryStringList.size();
 	}
 }
