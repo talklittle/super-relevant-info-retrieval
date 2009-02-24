@@ -135,6 +135,7 @@ public class RunnerGUI extends JFrame {
 		expandButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				List<Result> relevantResults = new ArrayList<Result>();
+				List<Result> nonrelevantResults = new ArrayList<Result>();
 				Iterator<JCheckBox> itCb = cbList.iterator();
 				Iterator<Result> itR = visibleResultset.getIterator();
 				
@@ -145,6 +146,9 @@ public class RunnerGUI extends JFrame {
 					if (cb.isSelected()) {
 						log.info("Added relevant result #" + i);
 						relevantResults.add(r);
+					} else {
+						log.debug("Nonrelevant result #" + i);
+						nonrelevantResults.add(r);
 					}
 					i++;
 				}
@@ -163,7 +167,8 @@ public class RunnerGUI extends JFrame {
 				
 				// Expand current query
 				currentQuery = qe.apply(currentQuery,
-						new Resultset(relevantResults));
+						new Resultset(relevantResults),
+						new Resultset(nonrelevantResults));
 				// Execute the expanded query
 				executeCurrentQuery();
 			}

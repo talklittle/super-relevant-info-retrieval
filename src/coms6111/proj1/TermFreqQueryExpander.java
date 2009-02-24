@@ -3,7 +3,9 @@ package coms6111.proj1;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -29,8 +31,8 @@ public class TermFreqQueryExpander implements QueryExpander {
 		nonrelevantIndex = createIndex(nonrelevantResultset);
 		
 		Term[] top2Terms =
-			selectTerms(relevantIndex, nonrelevantIndex);
-		returnMe = addTermsToQuery(query, top2Terms);
+			selectTerms(query, relevantIndex, nonrelevantIndex);
+		returnMe = addTermsToQuery(query, top2Terms, relevantIndex);
 		
 		try {
 			relevantIndex.close();
@@ -71,7 +73,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 	private Query addTermsToQuery(Query query, Term[] terms,
 			Directory relevantIndex) {
 		IndexReader ireader;
-		ArrayList<Term> allOurTerms = new ArrayList<Term>();
+		ArrayList<Term> allOurTerms = new ArrayList<Term>(); // = old query terms + new terms, unordered
 		
 		try {
 			ireader = IndexReader.open(relevantIndex);
@@ -80,6 +82,8 @@ public class TermFreqQueryExpander implements QueryExpander {
 			TermPositions tp1 = ireader.termPositions(term1);      
 			Term term2 = terms[1];
 			TermPositions tp2 = ireader.termPositions(term2);
+			allOurTerms.add(term1);
+			allOurTerms.add(term2);
 			Iterator<String> queryIterator;
 			queryIterator = query.iterator();
 			// Get the term positions for old query
@@ -92,36 +96,79 @@ public class TermFreqQueryExpander implements QueryExpander {
 			}
 			tpList.add(tp1);
 			tpList.add(tp2);
-			allOurTerms.add(tp1);
-			allOurTerms.add(tp2);
 			
-			TermPositions[] tpArr = (TermPositions[])tpList.toArray();
+			TermPositions[] tpArr = tpList.toArray(new TermPositions[0]);
 			String newQuery;
 			
-			TermFreqVector bestDoc = 0;
+			Term[][] termsInOrder = getTermsPositionsInDocuments(allOurTerms.toArray(new Term[0]), ireader);
+			Term[] bestDocTerms = null; // the terms in order, representing a (best) document
 			int numTermsBestDoc = 0;
-			for (int i = 0; i < ireader.numDocs(); i++) {
-				// pass a document, get all the terms & positions
-				TermFreqVector tfv = ireader.getTermFreqVector(i, "body");
-				int numTermsCurrDoc = 0;
-				for (String s : tfv.getTerms()) {
-					for (Term t : allOurTerms) {
-						if (s.equals(t.text())) {
-							numTermsCurrDoc++;
-						}
-					}
-				}
+			for (int i = 0; i < termsInOrder.length; i++) {
+				if (termsInOrder[i] == null)
+					break;
+				int numTermsCurrDoc = termsInOrder[i].length;
 				if (numTermsCurrDoc > numTermsBestDoc) {
+					bestDocTerms = termsInOrder[i];
 					numTermsBestDoc = numTermsCurrDoc;
-					bestDoc = i;
 				}
+				
 			}
 			
+			if (numTermsBestDoc == 0) {
+				// TODO handle this				
+			}
 			
-			
+			return new Query(bestDocTerms, query.getIteration() + 1);
 			
 		} catch (IOException e) {
 			log.error(e);
+			return null;
+		}
+	}
+	
+	/**
+	 * Return array of array.
+	 * Each outer array entry represents a document.
+	 * Each inner array entry represents a term in that document, in order by first occurrence.
+	 * @param allOurTerms
+	 * @param ireader
+	 * @return
+	 */
+	private Term[][] getTermsPositionsInDocuments(Term[] allOurTerms, IndexReader ireader) {
+		Term[][] returnMe = new Term[10][];
+		HashMap<Integer, List<TermDocPosVector>> docToTerms = new HashMap<Integer, List<TermDocPosVector>>();
+		
+		try {
+			// Go thru all our terms and retrieve term positions for each document
+			for (Term t : allOurTerms) {
+				TermPositions tp = ireader.termPositions(t);
+				do {
+					int currDoc = tp.doc();
+					int firstPos = tp.nextPosition(); // first position in current doc
+					if (!docToTerms.containsKey(currDoc))
+						docToTerms.put(currDoc, new ArrayList<TermDocPosVector>());
+					docToTerms.get(currDoc).add(new TermDocPosVector(t, currDoc, firstPos));
+				} while (tp.next());
+			}
+			// For each document, sort the gathered terms by position in that doc
+			Iterator<Integer> iterator = docToTerms.keySet().iterator();
+			int j = 0;
+			while (iterator.hasNext()) {
+				Integer key = iterator.next();
+				Term[] termsInOrderForADoc = new Term[docToTerms.get(key).size()];
+				TermDocPosVector[] temp = docToTerms.get(key).toArray(new TermDocPosVector[0]);
+				Arrays.sort(temp);
+				for (int i = 0; i < temp.length; i++) {
+					termsInOrderForADoc[i] = temp[i].term;
+				}
+				returnMe[j++] = termsInOrderForADoc;
+			}
+			
+			return returnMe;
+			
+		} catch (IOException e) {
+			log.error(e);
+			return null;
 		}
 	}
 	
@@ -209,14 +256,37 @@ public class TermFreqQueryExpander implements QueryExpander {
 			} while (allTerms.next());
 			
 			ireader.close();
-			return (TermFreqQEVector[]) tfqevList.toArray();
+			return tfqevList.toArray(new TermFreqQEVector[0]);
 			
 		} catch (IOException e) {
 			log.error("Error opening Directory", e);
 			return null;
 		}
 	}
-	
+
+	/**
+	 * Holds the <term, docNum, firstPos> vector
+	 */
+	private class TermDocPosVector implements Comparable {
+		public Term term;
+		public int doc, pos;
+		
+		public TermDocPosVector(Term t, int d, int p) {
+			term = t;
+			doc = d;
+			pos = p;
+		}
+		
+		public int compareTo(Object obj) {
+			TermDocPosVector other = (TermDocPosVector) obj;
+			if (this.pos < other.pos)
+				return -1;
+			else if (this.pos > other.pos)
+				return 1;
+			else
+				return 0;
+		}
+	}
 	
 	/**
 	 * Holds the <term, freq1, freq2> vector

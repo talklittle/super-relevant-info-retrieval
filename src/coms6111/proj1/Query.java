@@ -1,16 +1,14 @@
 package coms6111.proj1;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.StringTokenizer;
+import java.util.*;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.lucene.index.Term;
 
 public class Query {
 	private static Log log = LogFactory.getLog(Query.class);
@@ -31,6 +29,17 @@ public class Query {
 		while (st.hasMoreTokens())
 			myQueryStringList.add(st.nextToken());
 		myQueryString = queryString;
+		myIteration = iteration;
+	}
+	public Query(Term[] termsInOrder, int iteration) {
+		for (Term t : termsInOrder) {
+			myQueryString += (t.text() + " ");
+		}
+		myQueryString = myQueryString.trim();
+		StringTokenizer st = new StringTokenizer(myQueryString);
+		myQueryStringList = new ArrayList<String>();
+		while (st.hasMoreTokens())
+			myQueryStringList.add(st.nextToken());
 		myIteration = iteration;
 	}
 	
