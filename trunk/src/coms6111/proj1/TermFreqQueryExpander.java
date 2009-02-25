@@ -91,9 +91,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 		try {
 			ireader = IndexReader.open(relevantIndex);
 			Term term1 = terms[0];
-			TermPositions tp1 = ireader.termPositions(term1);      
 			Term term2 = terms[1];
-			TermPositions tp2 = ireader.termPositions(term2);
 			log.debug("addTermsToQuery: top term 1: " + term1 + "; top term 2: " + term2);
 			allOurTerms.add(term1);
 			allOurTerms.add(term2);
@@ -303,7 +301,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 	/**
 	 * Holds the <term, docNum, firstPos> vector
 	 */
-	private class TermDocPosVector implements Comparable {
+	private class TermDocPosVector implements Comparable<TermDocPosVector> {
 		public Term term;
 		public int doc, pos;
 		
@@ -313,8 +311,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 			pos = p;
 		}
 		
-		public int compareTo(Object obj) {
-			TermDocPosVector other = (TermDocPosVector) obj;
+		public int compareTo(TermDocPosVector other) {
 			if (this.pos < other.pos)
 				return -1;
 			else if (this.pos > other.pos)
@@ -329,7 +326,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 	 * freq1: docFreq(term)
 	 * freq2: idf (sum of tf over all documents)
 	 */
-	private class TermFreqQEVector implements Comparable {
+	private class TermFreqQEVector implements Comparable<TermFreqQEVector> {
 		public Term term;
 		public int freq1, freq2;
 		
@@ -343,8 +340,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 		 * If "this" is more frequent than "other", return -1
 		 * so that Arrays.sort orders the highest frequencies first
 		 */
-		public int compareTo(Object obj) {
-			TermFreqQEVector other = (TermFreqQEVector) obj;
+		public int compareTo(TermFreqQEVector other) {
 			if (this.freq1 > other.freq1) {
 				return -1;
 			} else if (this.freq1 < other.freq1) {
