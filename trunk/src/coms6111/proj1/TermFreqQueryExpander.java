@@ -27,11 +27,17 @@ public class TermFreqQueryExpander implements QueryExpander {
 		
 		Query returnMe;
 		Directory relevantIndex, nonrelevantIndex;
+
+		log.debug("Creating index for relevantResultset");
 		relevantIndex = createIndex(relevantResultset);
+		log.debug("Creating index for nonrelevantResultset");
 		nonrelevantIndex = createIndex(nonrelevantResultset);
 		
+		log.debug("Calling selectTerms(query, relevantIndex, nonrelevantIndex) to get top2");
 		Term[] top2Terms =
 			selectTerms(query, relevantIndex, nonrelevantIndex);
+		
+		log.debug("Adding top2 new terms to query");
 		returnMe = addTermsToQuery(query, top2Terms, relevantIndex);
 		
 		try {
@@ -41,7 +47,7 @@ public class TermFreqQueryExpander implements QueryExpander {
 			log.error("Error closing Directory", e);
 		}
 		
-	    return null;
+	    return returnMe;
 	}
 	
 	private Directory createIndex(Resultset resultset) {
@@ -54,14 +60,21 @@ public class TermFreqQueryExpander implements QueryExpander {
 		    IndexWriter iwriter = new IndexWriter(directory, analyzer,
 		    		IndexWriter.MaxFieldLength.UNLIMITED);
 		    iwriter.setMaxFieldLength(25000);
-		    Document doc = new Document();
-		    String text = "This is the text to be indexed.";
-		    doc.add(new Field("fieldname", text, Field.Store.YES,
-		        Field.Index.ANALYZED));
-		    iwriter.addDocument(doc);
+		    // Add each Result's text to the index
+		    Iterator<Result> iterator = resultset.iterator();
+		    while (iterator.hasNext()) {
+		    	Document doc = new Document();
+			    Result r = iterator.next();
+		    	String text = r.summary;
+		    	log.debug("Adding new document to query, field \"body\", text: " + text);
+			    doc.add(new Field("body", text, Field.Store.YES,
+			        Field.Index.ANALYZED));
+			    iwriter.addDocument(doc);
+		    }
 		    iwriter.optimize();
 		    iwriter.close();
 
+		    log.debug("Created an index. Returning the directory.");
 		    return directory;
 
 		} catch (IOException e) {
@@ -77,28 +90,22 @@ public class TermFreqQueryExpander implements QueryExpander {
 		
 		try {
 			ireader = IndexReader.open(relevantIndex);
-			ArrayList<TermPositions> tpList = new ArrayList<TermPositions>();
 			Term term1 = terms[0];
 			TermPositions tp1 = ireader.termPositions(term1);      
 			Term term2 = terms[1];
 			TermPositions tp2 = ireader.termPositions(term2);
+			log.debug("addTermsToQuery: top term 1: " + term1 + "; top term 2: " + term2);
 			allOurTerms.add(term1);
 			allOurTerms.add(term2);
 			Iterator<String> queryIterator;
 			queryIterator = query.iterator();
-			// Get the term positions for old query
+			// Add terms from old query
 			while (queryIterator.hasNext()) {
 				String queryWord = queryIterator.next();
 				Term aTerm = new Term("body", queryWord);
-				TermPositions tp = ireader.termPositions(aTerm);
-				tpList.add(tp);
+				log.debug("addTermsToQuery: adding old query term: " + aTerm);
 				allOurTerms.add(aTerm);
 			}
-			tpList.add(tp1);
-			tpList.add(tp2);
-			
-			TermPositions[] tpArr = tpList.toArray(new TermPositions[0]);
-			String newQuery;
 			
 			Term[][] termsInOrder = getTermsPositionsInDocuments(allOurTerms.toArray(new Term[0]), ireader);
 			Term[] bestDocTerms = null; // the terms in order, representing a (best) document
@@ -114,11 +121,32 @@ public class TermFreqQueryExpander implements QueryExpander {
 				
 			}
 			
+			// Add the terms from the document w/ the most terms, in the order they first appear in that doc.
+			// Afterwards, add any remaining terms that were not in the top document, in order by freq.
+			ArrayList<Term> finalBestTerms = new ArrayList<Term>();
+			for (Term t : bestDocTerms) {
+				log.debug("Adding term from bestDoc: " + t);
+				finalBestTerms.add(t);
+			}
+			for (Term t : allOurTerms) {
+				boolean inBestDoc = false;
+				for (Term bdt : bestDocTerms) {
+					if (t.equals(bdt)) {
+						inBestDoc = true;
+						break;
+					}
+				}
+				if (!inBestDoc) {
+					log.debug("Adding term not in bestDoc: " + t);
+					finalBestTerms.add(t);
+				}
+			}
 			if (numTermsBestDoc == 0) {
-				// TODO handle this				
+				// TODO handle this
+				log.warn("numTermsBestDoc == 0");
 			}
 			
-			return new Query(bestDocTerms, query.getIteration() + 1);
+			return new Query(finalBestTerms.toArray(new Term[0]), query.getIteration() + 1);
 			
 		} catch (IOException e) {
 			log.error(e);
@@ -142,13 +170,13 @@ public class TermFreqQueryExpander implements QueryExpander {
 			// Go thru all our terms and retrieve term positions for each document
 			for (Term t : allOurTerms) {
 				TermPositions tp = ireader.termPositions(t);
-				do {
+				while (tp.next()) {
 					int currDoc = tp.doc();
 					int firstPos = tp.nextPosition(); // first position in current doc
 					if (!docToTerms.containsKey(currDoc))
 						docToTerms.put(currDoc, new ArrayList<TermDocPosVector>());
 					docToTerms.get(currDoc).add(new TermDocPosVector(t, currDoc, firstPos));
-				} while (tp.next());
+				}
 			}
 			// For each document, sort the gathered terms by position in that doc
 			Iterator<Integer> iterator = docToTerms.keySet().iterator();
@@ -202,8 +230,11 @@ public class TermFreqQueryExpander implements QueryExpander {
 					break;
 				}
 			}
-			if (alreadyInQuery)
+			if (alreadyInQuery) {
+				log.debug("Would add term " + combinedTfqeVectors[i].term + ", but it's already in query.");
 				continue;
+			}
+			log.debug("Adding term " + combinedTfqeVectors[i].term + " to top2");
 			top2Terms[topNthTerm++] = combinedTfqeVectors[i].term;
 			if (topNthTerm >= 2)
 				break;
@@ -217,14 +248,16 @@ public class TermFreqQueryExpander implements QueryExpander {
 			TermFreqQEVector[] nonrelevantTfqeVectors) {
 		
 		for (int i = 0; i < nonrelevantTfqeVectors.length; i++) {
-			nonrelevantTfqeVectors[i].freq1=(-1)*nonrelevantTfqeVectors[i].freq1;
+			nonrelevantTfqeVectors[i].freq1 *= -1;
 		}
 		
 		for (int i = 0; i< relevantTfqeVectors.length; i++) {
 			for (int j=0 ; j< nonrelevantTfqeVectors.length; j++) {
 				// decrease term freq by # of times it appears in nonrel docs
 				if (relevantTfqeVectors[i].term.equals(nonrelevantTfqeVectors[j].term)){
-					relevantTfqeVectors[i].freq1=relevantTfqeVectors[i].freq1+nonrelevantTfqeVectors[j].freq1;
+					relevantTfqeVectors[i].freq1 += nonrelevantTfqeVectors[j].freq1;
+					log.debug("term \"" + relevantTfqeVectors[i].term + "\" found in both relevant and nonrelevant docs. "
+							+ "new freq: " + relevantTfqeVectors[i].freq1);
 				}
 			}
 		}
@@ -237,23 +270,26 @@ public class TermFreqQueryExpander implements QueryExpander {
 		ArrayList<TermFreqQEVector> tfqevList
 			= new ArrayList<TermFreqQEVector>();
 		
+		log.debug("In computeTermFrequencies. index is " + index);
 		try {
 			IndexReader ireader = IndexReader.open(index);
 			TermEnum allTerms = ireader.terms();
-			do {
-				TermFreqQEVector tfqeVector = new TermFreqQEVector();
+			log.debug("created allTerms. it is " + allTerms);
+			while (allTerms.next()) {
 				Term currTerm = allTerms.term();
-				tfqeVector.term = allTerms.term();
-				tfqeVector.freq1 = ireader.docFreq(currTerm);
-				// Calculate idf
-				tfqeVector.freq2 = 0;
+				log.debug("currTerm is " + currTerm);
+				TermFreqQEVector tfqeVector = new TermFreqQEVector(
+						allTerms.term(),
+						ireader.docFreq(currTerm),
+						0);
+				// calculate idf (freq2)
 				TermDocs td = ireader.termDocs(currTerm);
-				do {
+				while (td.next()) {
 					tfqeVector.freq2 += td.freq(); 
-				} while (td.next());
+				}
 			
 				tfqevList.add(tfqeVector);
-			} while (allTerms.next());
+			}
 			
 			ireader.close();
 			return tfqevList.toArray(new TermFreqQEVector[0]);
@@ -297,17 +333,27 @@ public class TermFreqQueryExpander implements QueryExpander {
 		public Term term;
 		public int freq1, freq2;
 		
+		public TermFreqQEVector(Term t, int f1, int f2) {
+			term = t;
+			freq1 = f1;
+			freq2 = f2;
+		}
+		
+		/**
+		 * If "this" is more frequent than "other", return -1
+		 * so that Arrays.sort orders the highest frequencies first
+		 */
 		public int compareTo(Object obj) {
 			TermFreqQEVector other = (TermFreqQEVector) obj;
 			if (this.freq1 > other.freq1) {
-				return 1;
-			} else if (this.freq1 < other.freq1) {
 				return -1;
+			} else if (this.freq1 < other.freq1) {
+				return 1;
 			}
 			if (this.freq2 > other.freq2) {
-				return 1;
-			} else if (this.freq2 < other.freq2) {
 				return -1;
+			} else if (this.freq2 < other.freq2) {
+				return 1;
 			}
 			return 0;
 		}
