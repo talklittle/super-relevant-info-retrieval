@@ -24,23 +24,17 @@ public class Query {
 		this(queryString, 0);
 	}
 	public Query(String queryString, int iteration) {
-		StringTokenizer st = new StringTokenizer(queryString);
-		myQueryStringList = new ArrayList<String>();
-		while (st.hasMoreTokens())
-			myQueryStringList.add(st.nextToken());
-		myQueryString = queryString;
 		myIteration = iteration;
+		this.setString(queryString);
 	}
 	public Query(Term[] termsInOrder, int iteration) {
+		myQueryString = "";
 		for (Term t : termsInOrder) {
 			myQueryString += (t.text() + " ");
 		}
 		myQueryString = myQueryString.trim();
-		StringTokenizer st = new StringTokenizer(myQueryString);
-		myQueryStringList = new ArrayList<String>();
-		while (st.hasMoreTokens())
-			myQueryStringList.add(st.nextToken());
 		myIteration = iteration;
+		this.setString(myQueryString);
 	}
 	
 	public Resultset execute() {
@@ -104,6 +98,10 @@ public class Query {
 	 * @param queryString The String of the Query
 	 */
 	public void setString(String queryString) {
+		StringTokenizer st = new StringTokenizer(queryString);
+		myQueryStringList = new ArrayList<String>();
+		while (st.hasMoreTokens())
+			myQueryStringList.add(st.nextToken());
 		myQueryString = queryString;
 	}
 	

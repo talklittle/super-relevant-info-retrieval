@@ -36,7 +36,7 @@ public class RunnerGUI extends JFrame {
 		super(title);
 		// TODO Allow user to specify the algorithm for query expansion
 		//      Aside from cmdline args, have drop-down list?
-//		qe = new TermFrequencyQueryExpander();
+		qe = new TermFreqQueryExpander();
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class RunnerGUI extends JFrame {
 	 * @param rs New Resultset to replace current one
 	 */
 	public void setResultset(Resultset rs) {
-		Iterator<Result> it = rs.getIterator();
+		Iterator<Result> it = rs.iterator();
 		int i = 0;
 		
 		visibleResultset = rs;
@@ -137,7 +137,7 @@ public class RunnerGUI extends JFrame {
 				List<Result> relevantResults = new ArrayList<Result>();
 				List<Result> nonrelevantResults = new ArrayList<Result>();
 				Iterator<JCheckBox> itCb = cbList.iterator();
-				Iterator<Result> itR = visibleResultset.getIterator();
+				Iterator<Result> itR = visibleResultset.iterator();
 				
 				int i = 1;
 				while (itCb.hasNext() && itR.hasNext()) {
@@ -166,9 +166,11 @@ public class RunnerGUI extends JFrame {
 				}
 				
 				// Expand current query
-				currentQuery = qe.apply(currentQuery,
-						new Resultset(relevantResults),
-						new Resultset(nonrelevantResults));
+				log.debug("Trying to expand the query using relevant results");
+				Resultset relevantResultset = new Resultset(relevantResults);
+				Resultset nonrelevantResultset = new Resultset(nonrelevantResults);
+				currentQuery = qe.apply(currentQuery, relevantResultset, nonrelevantResultset);
+				log.debug("Expanded query! Now execute new query.");
 				// Execute the expanded query
 				executeCurrentQuery();
 			}

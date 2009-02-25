@@ -65,14 +65,14 @@ public class Resultset {
 	 * Get an in-order Iterator for the Resultset.
 	 * @return An in-order Iterator for the Resultset.
 	 */
-	public Iterator<Result> getIterator() {
+	public Iterator<Result> iterator() {
 		return myResults.iterator();
 	}
 	/**
 	 * Get an in-order ListIterator for the Resultset.
 	 * @return An in-order ListIterator for the Resultset.
 	 */
-	public ListIterator<Result> getListIterator() {
+	public ListIterator<Result> listIterator() {
 		return myResults.listIterator();
 	}
 	
