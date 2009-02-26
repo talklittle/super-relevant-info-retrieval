@@ -1,0 +1,180 @@
+./run.sh /home/ans2120/cs6111/proj1/src/lib
+INFO : Executing query [tiger]
+INFO : -- Result 1
+INFO : Title: Tiger - Wikipedia, the free encyclopedia
+INFO : Summary: The tiger (Panthera tigris) is a member of the Felidae family; the largest of ... Of the nine subspecies of modern tiger, three are extinct and the remaining six ...
+INFO : URL: http://en.wikipedia.org/wiki/Tiger
+INFO : --
+INFO : -- Result 2
+INFO : Title: Great Cats - National Zoo| FONZ
+INFO : Summary: Exhibition, conservation, and science of lions and tigers ... Read the Latest Tiger Cub Diary Entry. Behind the Scenes at Great Cats. Small Cats, Looming Large ...
+INFO : URL: http://nationalzoo.si.edu/Animals/GreatCats/
+INFO : --
+INFO : -- Result 3
+INFO : Title: Save the Tiger Fund
+INFO : Summary: Established to provide the public, scientific, and conservation communities with an international forum for exchanging information relevant to the preservation of wild tigers across Asia and in zoos worldwide. 5 TIGERS includes information for kids and researches alike.
+INFO : URL: http://www.savethetigerfund.org/
+INFO : --
+INFO : -- Result 4
+INFO : Title: TigerDirect Store - Computers, Computer Parts, Computer Components, and ...
+INFO : Summary: Offers a wide selection of new and refurbished computer products.
+INFO : URL: http://www.tigerdirect.com/
+INFO : --
+INFO : -- Result 5
+INFO : Title: Tiger Woods
+INFO : Summary: Official site for pro golfer Tiger Woods, complete with video interviews, photos, stats, and features.
+INFO : URL: http://www.tigerwoods.com/
+INFO : --
+INFO : -- Result 6
+INFO : Title: Detroit Tigers
+INFO : Summary: Official site for the baseball team. Features up-to-date Detroit Tigers stats and results, player bios, minor league information, ticket and merchandise ordering info, player photos, and audio highlights.
+INFO : URL: http://www.detroittigers.com/
+INFO : --
+INFO : -- Result 7
+INFO : Title: San Diego Zoo's Animal Bytes: Tiger
+INFO : Summary: Get fun and interesting tiger facts in an easy-to-read style from the San Diego ... The tiger is a stalk-and-ambush hunter, and the stripes are good camouflage ...
+INFO : URL: http://www.sandiegozoo.org/animalbytes/t-tiger.html
+INFO : --
+INFO : -- Result 8
+INFO : Title: tiger: Definition, Synonyms from Answers.com
+INFO : Summary: tiger n. A large carnivorous feline mammal (Panthera tigris) of Asia, having a tawny coat with ... survive: the Bengal tiger (Panthera t. tigris) in ...
+INFO : URL: http://www.answers.com/topic/tiger
+INFO : --
+INFO : -- Result 9
+INFO : Title: Tiger
+INFO : Summary: Tiger Photos, Tiger Sounds, Tiger Facts at the World's Largest Big Cat Rescue and Sanctuary. ... Bengal Tiger - Panthera tigris tigris 1200-1500 left ...
+INFO : URL: http://www.bigcatrescue.org/cats/wild/tiger.htm
+INFO : --
+INFO : -- Result 10
+INFO : Title: Tiger Corporation: Rotary and Flail Mowers for Highway Maintenance
+INFO : Summary: Tiger Corporation manufactures innovative solutions for roadside vegetation ... 2008 TIGER CORPORATION, All Rights Reserved. - Legal Disclaimer ...
+INFO : URL: http://www.tiger-mowers.com/
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #5
+INFO : Executing query [golfer tiger complete]
+INFO : -- Result 1
+INFO : Title: "A-Game" Golf: The Complete Starter Kit for Golfers - Book at Yahoo! ...
+INFO : Summary: Yahoo! Shopping is the best place to comparison shop for
+INFO : URL: http://shopping.yahoo.com/p:%22A-Game%22%20Golf:%20The%20Complete%20Starter%20Kit%20for%20Golfers%20from%20Tiger%20Woods'%20Amateur%20Instructor:3002451943
+INFO : --
+INFO : -- Result 2
+INFO : Title: Tiger Woods - Wikipedia
+INFO : Summary: Hyperlinked biography and background for the golf superstar Tiger Woods.
+INFO : URL: http://en.wikipedia.org/wiki/Tiger_Woods
+INFO : --
+INFO : -- Result 3
+INFO : Title: Complete Golfer - Yahoo! Shopping
+INFO : Summary: Yahoo! Shopping is the best place to comparison shop for Complete Golfer - Book. ... Tiger Woods continues setting the golf world afire through his incredible talent ...
+INFO : URL: http://shopping.yahoo.com/p:Complete%20Golfer:1979138846
+INFO : --
+INFO : -- Result 4
+INFO : Title: Asterpix Interactive Video - Tiger, Tiger, Tiger, Tiger Woods y'all!
+INFO : Summary: Tiger's tee shot in the rain on the 18th hole of Torrey Pines on the final day ... Official site for pro golfer Tiger Woods, complete with video interviews, photos, ...
+INFO : URL: http://www.asterpix.com/console/?avi=18996091
+INFO : --
+INFO : -- Result 5
+INFO : Title: Tiger Woods PGA Tour 08 cheat codes, secrets for the XBOX360
+INFO : Summary: Cheat codes for Tiger Woods PGA Tour 08 on the XBOX360. ... Complete 100% Tiger Challenge Bronze. XX (10) Create a female golfer using Photo Game Face. ...
+INFO : URL: http://www.gamerevolution.com/cheat/xbox360/tiger_woods_08
+INFO : --
+INFO : -- Result 6
+INFO : Title: Tiger Woods PGA Tour 08 Cheats, Tiger Woods PGA Tour 08 Cheat Codes ...
+INFO : Summary: ... Xbox 360 games such as Tiger Woods PGA Tour 08. Also find reviews, previews, features, news and more about Tiger ... Complete 100% Tiger Challenge Bronze. XX ...
+INFO : URL: http://www.gamesradar.com/xbox360/tiger-woods-pga-tour-08/cheats-guides-faqs/g-20070504162416314032
+INFO : --
+INFO : -- Result 7
+INFO : Title: snopes.com: Tiger Woods' House
+INFO : Summary: Do photographs show the beachfront home of golfer Tiger Woods? ... Central A/C, complete Media/Entertainment Room with 9 ft. projection screen and ...
+INFO : URL: http://snopes.com/photos/architecture/tigerwoods.asp
+INFO : --
+INFO : -- Result 8
+INFO : Title: Ladies' Golf Clubs: Tiger Shark 2007 Lady TS-960 Full Set
+INFO : Summary: Complete golf club set for women golfers: Tiger Shark 2007 Lady TS-960 Full Set ... with a fashionable cartbag, 5 headcovers and a rainhood to complete the package. ...
+INFO : URL: http://www.golfsmith.com/products/TS310
+INFO : --
+INFO : -- Result 9
+INFO : Title: Tiger Woods PGA Tour 08 Cheats, Codes, Cheat Codes for Xbox 360
+INFO : Summary: ... hints, tips, tricks, and secrets for Tiger Woods PGA Tour 08 for the Xbox ... Mini-Golf (20 points): Complete each Mini game using the same Original Golfer. ...
+INFO : URL: http://www.cheatcc.com/xbox360/tigerwoodspgatour08cheatscodes.html
+INFO : --
+INFO : -- Result 10
+INFO : Title: Tiger Woods - Top Golfer
+INFO : Summary: Record breaking pro golfer Eldrick &amp;quot;Tiger&amp;quot; Woods was born on the 30th ... for that was the year Tiger Woods won the Masters to complete a 294-day sweep of ...
+INFO : URL: http://www.squidoo.com/tigerwoodstopgolfer
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #2
+INFO : Added relevant result #3
+INFO : Added relevant result #4
+INFO : Added relevant result #5
+INFO : Added relevant result #6
+INFO : Added relevant result #7
+INFO : Added relevant result #9
+INFO : Added relevant result #10
+INFO : Executing query [tiger woods 08 complete golfer]
+INFO : -- Result 1
+INFO : Title: Tiger Woods - Wikipedia
+INFO : Summary: Hyperlinked biography and background for the golf superstar Tiger Woods.
+INFO : URL: http://en.wikipedia.org/wiki/Tiger_Woods
+INFO : --
+INFO : -- Result 2
+INFO : Title: Tiger Woods PGA Tour 08 for Xbox 360 Cheats - Tiger Woods PGA Tour 08 ...
+INFO : Summary: Tiger Woods PGA Tour 08 for Xbox 360 Cheats - GameSpot offers Tiger Woods PGA Tour 08 codes, cheat ... Complete a full 18 Hole round of each Traditional ...
+INFO : URL: http://www.gamespot.com/xbox360/sports/tigerwoodspgatour08/hints.html
+INFO : --
+INFO : -- Result 3
+INFO : Title: Achieve360Points.com - Tiger Woods PGA Tour 08 - Xbox 360 Achievements
+INFO : Summary: View all of the exciting Xbox 360 Achievements for Tiger Woods PGA Tour 08! Make sure and browse our complete achievement list for every known achievement for the ...
+INFO : URL: http://www.achieve360points.com/game/tigerwoodspgatour08/
+INFO : --
+INFO : -- Result 4
+INFO : Title: Tiger Woods PGA Tour 08 Cheats, Codes, Cheat Codes for Xbox 360
+INFO : Summary: ... tips, tricks, and secrets for Tiger Woods PGA Tour 08 for the Xbox 360 (X360) ... Mini-Golf (20 points): Complete each Mini game using the same Original Golfer. ...
+INFO : URL: http://www.cheatcc.com/xbox360/tigerwoodspgatour08cheatscodes.html
+INFO : --
+INFO : -- Result 5
+INFO : Title: Tiger Woods
+INFO : Summary: Official site for pro golfer Tiger Woods, complete with video interviews, photos, stats, and features.
+INFO : URL: http://www.tigerwoods.com/splash/splash.sps
+INFO : --
+INFO : -- Result 6
+INFO : Title: Tiger Woods PGA Tour 08 cheat codes, secrets for the XBOX360
+INFO : Summary: Cheat codes for Tiger Woods PGA Tour 08 on the XBOX360. ... Complete 100% Tiger Challenge Bronze. XX (10) Create a female golfer using Photo Game Face. ...
+INFO : URL: http://www.gamerevolution.com/cheat/xbox360/tiger_woods_08
+INFO : --
+INFO : -- Result 7
+INFO : Title: Tiger Woods PGA Tour 08 Cheats, Tiger Woods PGA Tour 08 Cheat Codes ...
+INFO : Summary: ... Xbox 360 games such as Tiger Woods PGA Tour 08. Also find reviews, previews, features, news and more about Tiger ... Complete 100% Tiger Challenge Bronze. XX ...
+INFO : URL: http://www.gamesradar.com/xbox360/tiger-woods-pga-tour-08/cheats-guides-faqs/g-20070504162416314032
+INFO : --
+INFO : -- Result 8
+INFO : Title: Tiger Woods PGA Tour 08 Review - Page 1 - The Gamers Temple
+INFO : Summary: ... Tiger Woods is still playing catch-up, with the 08 version the most complete ... Once your golfer is created you're ready to hit the links in any of the ...
+INFO : URL: http://www.gamerstemple.com/vg/games31/003398/003398r01.asp
+INFO : --
+INFO : -- Result 9
+INFO : Title: Tiger Woods PGA Tour 08 Review - hosted by Neoseeker
+INFO : Summary: ... to Tiger Woods 08 in order to move it closer to being a more complete golfing experience. ... 08, players have to earn their way to being a better golfer, ...
+INFO : URL: http://www.neoseeker.com/resourcelink.html?rid=143724
+INFO : --
+INFO : -- Result 10
+INFO : Title: Latest Tiger Woods PGA Tour 08 Cheats - Xbox 360
+INFO : Summary: ... page offers the most up-to-date Tiger Woods PGA Tour 08 cheats, codes, and hints. ... Mini-Golf (20): Complete each Mini game using the same Original Golfer. ...
+INFO : URL: http://www.actiontrip.com/cheats/360/tigerwoodspgatour08.phtml
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #1
+INFO : Added relevant result #2
+INFO : Added relevant result #3
+INFO : Added relevant result #4
+INFO : Added relevant result #5
+INFO : Added relevant result #6
+INFO : Added relevant result #7
+INFO : Added relevant result #8
+INFO : Added relevant result #9
+INFO : Added relevant result #10
+INFO : Desired precision reached.

@@ -1,0 +1,180 @@
+./run.sh /home/ans2120/cs6111/proj1/src/lib
+INFO : Executing query [rock]
+INFO : -- Result 1
+INFO : Title: Rock music - Wikipedia, the free encyclopedia
+INFO : Summary: In the late 1960s and early 1970s, rock music developed different subgenres. ... Also in the 1970s, rock developed a number of subgenres, such ...
+INFO : URL: http://en.wikipedia.org/wiki/Rock_music
+INFO : --
+INFO : -- Result 2
+INFO : Title: Rock.com Music Network
+INFO : Summary: Featuring CDs, free digital downloads, original music reviews, and artist information on many genres.
+INFO : URL: http://rock.com/
+INFO : --
+INFO : -- Result 3
+INFO : Title: Rock and roll - Wikipedia, the free encyclopedia
+INFO : Summary: The term "rock and roll" now covers at least two different meanings, both in common usage. ... Main article: Origins of rock and roll ...
+INFO : URL: http://en.wikipedia.org/wiki/Rock_and_roll
+INFO : --
+INFO : -- Result 4
+INFO : Title: Rock and Roll Hall of Fame and Museum
+INFO : Summary: Official site of the Rock and Roll Hall of Fame and Museum in Cleveland, Ohio. Site includes information on past and future inductees and museum exhibitions.
+INFO : URL: http://www.rockhall.com/
+INFO : --
+INFO : -- Result 5
+INFO : Title: Rock Music and Videos | MTV Official Site
+INFO : Summary: Watch the latest Rock Music videos and listen to headbanger's Ball Radio online. The latest rock music video premieres on MTV.com.
+INFO : URL: http://www.mtv.com/music/rock/
+INFO : --
+INFO : -- Result 6
+INFO : Title: Dwayne Johnson (I)
+INFO : Summary: Photos, biography, filmography, and more about the actor and wrestler The Rock, aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, and Doom.
+INFO : URL: http://www.imdb.com/name/nm0425005/
+INFO : --
+INFO : -- Result 7
+INFO : Title: The Rock (Movie) - IMDb
+INFO : Summary: Cast/character credits, quotes, and production details about the 1996 movie The Rock, starring Nicolas Cage and Sean Connery, with Ed Harris, John Spencer, David Morse, William Forsythe, and Michael Biehn.
+INFO : URL: http://www.imdb.com/title/tt0117500
+INFO : --
+INFO : -- Result 8
+INFO : Title: HardRadio
+INFO : Summary: Live, commercial-free hard rock radio.
+INFO : URL: http://www.hardradio.com/
+INFO : --
+INFO : -- Result 9
+INFO : Title: rock music: Information from Answers.com
+INFO : Summary: rock music Musical style that arose in the U.S. in the mid-1950s and became the dominant form of ... Rock music comes in many forms, stretching and twisting, ...
+INFO : URL: http://www.answers.com/topic/rock-music
+INFO : --
+INFO : -- Result 10
+INFO : Title: Amazon.com: Rock: Music
+INFO : Summary: Find, shop for and buy Music at Amazon.com ... of genre-defying rock, blues, R&amp;B, and more. ... What year in the 90's was most prolific for rock? 9. 6 hours ago ...
+INFO : URL: http://www.amazon.com/Rock-Music/b?ie=UTF8&node=40
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #6
+INFO : Executing query [actor rock aka]
+INFO : -- Result 1
+INFO : Title: YouTube - Camp Rock Actor Roshon Fegan aka Ya Boy Ro "Do You Got A Man?"
+INFO : Summary: Camp Rock Actor Roshon Fegan aka Ya Boy Ro &amp;quot;Do You Got A Man?&amp;quot; with the Jonas Brothers and New Cast Pic's.www.myspace.com/3inaRowww.myspace.com/yab...
+INFO : URL: http://www.youtube.com/watch?v=GNwqNMgwRqY
+INFO : --
+INFO : -- Result 2
+INFO : Title: Dwayne Johnson (I)
+INFO : Summary: Photos, biography, filmography, and more about the actor and wrestler The Rock, aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, and Doom.
+INFO : URL: http://www.imdb.com/name/nm0425005/
+INFO : --
+INFO : -- Result 3
+INFO : Title: The Rock aka Dwayne Johnson - AskMen.com
+INFO : Summary: Check out The Rock aka Dwayne Johnson on AskMen.com Now! ... Home Celebs Men Actors &amp; Musicians The Rock aka Dwayne Johnson ... The Rock aka Dwayne Johnson ...
+INFO : URL: http://www.askmen.com/celebs/men/apr00/22_the_rock.html
+INFO : --
+INFO : -- Result 4
+INFO : Title: The Rock aka Dwayne Johnson pics - AskMen.com
+INFO : Summary: Check out The Rock aka Dwayne Johnson on ... Men Actors &amp; Musicians The Rock aka Dwayne ... For 2009's Top Actress, Actor &amp; Film. 2009's Top Gifts ...
+INFO : URL: http://www.askmen.com/men/apr00/22c_the_rock.html
+INFO : --
+INFO : -- Result 5
+INFO : Title: Yahoo! Directory AU &amp; NZ &gt; Actors &gt; The Rock
+INFO : Summary: ... Rock - Photos, biography, filmography, and more about the actor and ... aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, ...
+INFO : URL: http://au.dir.yahoo.com/Entertainment/Actors/The_Rock/?sort=lf
+INFO : --
+INFO : -- Result 6
+INFO : Title: Yahoo! Asia Directory &gt; Actors &gt; Johnson, Dwayne (The Rock)
+INFO : Summary: ... aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, ... Entertainment &gt; Actors &gt; Johnson, Dwayne (The Rock) Copyright © 2003 ...
+INFO : URL: http://asia.dir.yahoo.com/Entertainment/Actors/Johnson__Dwayne__The_Rock_/
+INFO : --
+INFO : -- Result 7
+INFO : Title: Yahoo! India Directory &gt; Actors &gt; Johnson, Dwayne (The Rock)
+INFO : Summary: ... aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, ... Entertainment &gt; Actors &gt; Johnson, Dwayne (The Rock) Copyright © 2006 ...
+INFO : URL: http://in.dir.yahoo.com/Entertainment/Actors/Johnson__Dwayne__The_Rock_/
+INFO : --
+INFO : -- Result 8
+INFO : Title: Chris Rock (I)
+INFO : Summary: With a mini biography, photo gallery, and filmography.
+INFO : URL: http://www.imdb.com/name/nm0001674/
+INFO : --
+INFO : -- Result 9
+INFO : Title: Dwayne Johnson - Wikipedia, the free encyclopedia
+INFO : Summary: The Rock. Dwayne "The Rock" Johnson. Years active. 1995–2004 (wrestler) 1999–present(actor) ... a b c d e f g "Actors - The Rock". Monsters&amp;Critics. ...
+INFO : URL: http://en.wikipedia.org/wiki/Dwayne_Johnson
+INFO : --
+INFO : -- Result 10
+INFO : Title: Yahoo! Canada Directory &gt; Actors &gt; Johnson, Dwayne (The Rock)
+INFO : Summary: ... aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, ... Directory &gt; Entertainment &gt; Actors &gt; Johnson, Dwayne (The Rock) ...
+INFO : URL: http://ca.dir.yahoo.com/Entertainment/Actors/Johnson__Dwayne__The_Rock_/
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #2
+INFO : Added relevant result #3
+INFO : Added relevant result #4
+INFO : Added relevant result #5
+INFO : Added relevant result #6
+INFO : Added relevant result #7
+INFO : Added relevant result #9
+INFO : Added relevant result #10
+INFO : Executing query [actor rock aka dwayne johnson]
+INFO : -- Result 1
+INFO : Title: Dwayne Johnson (I)
+INFO : Summary: Photos, biography, filmography, and more about the actor and wrestler The Rock, aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, and Doom.
+INFO : URL: http://www.imdb.com/name/nm0425005/
+INFO : --
+INFO : -- Result 2
+INFO : Title: Dwayne Johnson - Wikipedia, the free encyclopedia
+INFO : Summary: The Rock. Dwayne "The Rock" Johnson. Years active. 1995–2004 (wrestler) 1999–present(actor) ... 2006, Johnson began "The Dwayne Johnson Rock Foundation", which ...
+INFO : URL: http://en.wikipedia.org/wiki/Dwayne_Johnson
+INFO : --
+INFO : -- Result 3
+INFO : Title: The Rock aka Dwayne Johnson pics - AskMen.com
+INFO : Summary: ... out The Rock aka Dwayne Johnson on AskMen. ... Actors &amp; Musicians The Rock aka Dwayne Johnson ... The Rock aka Dwayne Johnson. AtPictures.com: The Rock ...
+INFO : URL: http://www.askmen.com/men/apr00/22c_the_rock.html
+INFO : --
+INFO : -- Result 4
+INFO : Title: The Rock aka Dwayne Johnson - AskMen.com
+INFO : Summary: Check out The Rock aka Dwayne Johnson on AskMen.com Now! ... Home Celebs Men Actors &amp; Musicians The Rock aka Dwayne Johnson ... The Rock aka Dwayne Johnson ...
+INFO : URL: http://www.askmen.com/celebs/men/apr00/22_the_rock.html
+INFO : --
+INFO : -- Result 5
+INFO : Title: Dwayne Johnson - Celebrities at Weblo.com
+INFO : Summary: Pictures Dwayne Johnson AKA... Aug 20, 2008 22:38:21. WWF Aug ... credited as Dwayne "The Rock" Johnson, is an American actor and former professional wrestler. ...
+INFO : URL: http://www.weblo.com/celebrity/Actor/Dwayne_Johnson/485687/
+INFO : --
+INFO : -- Result 6
+INFO : Title: Dwayne Johnson Address
+INFO : Summary: ... for requesting autographs and sending fan mail to Dwayne Johnson ... Dwayne Johnson. Actor / Wrestler. AKA: Dwayne 'Rock' Johnson. Date of birth: 02/May/1972 ...
+INFO : URL: http://www.fanmail.biz/1816.html
+INFO : --
+INFO : -- Result 7
+INFO : Title: AbsoluteNow: The Rock photos - Actor DWAYNE JOHNSON (aka THE ROCK) at ...
+INFO : Summary: Actor DWAYNE JOHNSON (aka THE ROCK) at the world premiere, in Los Angeles, of Ocean's Eleven. ... Dwayne Johnson (The Rock) attending the MTV Video Music ...
+INFO : URL: http://www.absolutenow.com/new/the_rock4.html
+INFO : --
+INFO : -- Result 8
+INFO : Title: The Rock aka Dwayne Johnson - FamousWhy
+INFO : Summary: The Rock aka Dwayne Johnson Biography, Career, Trivia, Filmography, Links, Pictures ... The Rock aka Dwayne Johnson. Home / People / Actors ...
+INFO : URL: http://people.famouswhy.com/the_rock_aka_dwayne_johnson
+INFO : --
+INFO : -- Result 9
+INFO : Title: Yahoo! Asia Directory &gt; Actors &gt; Johnson, Dwayne (The Rock)
+INFO : Summary: ... aka Dwayne Johnson, whose movies include The Scorpion King, The Rundown, Be Cool, ... Entertainment &gt; Actors &gt; Johnson, Dwayne (The Rock) Copyright © 2003 ...
+INFO : URL: http://asia.dir.yahoo.com/Entertainment/Actors/Johnson__Dwayne__The_Rock_/
+INFO : --
+INFO : -- Result 10
+INFO : Title: IMDb Search
+INFO : Summary: Dwayne Johnson (I) (Actor, The Scorpion King (2002)) aka "Dwayne 'The Rock' Johnson" ... aka "Dwayne "The Rock" Johnson" Popular Characters (Displaying 1 Result) 1. ...
+INFO : URL: http://www.imdb.com/find?q=Dwayne
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #1
+INFO : Added relevant result #2
+INFO : Added relevant result #3
+INFO : Added relevant result #4
+INFO : Added relevant result #5
+INFO : Added relevant result #6
+INFO : Added relevant result #7
+INFO : Added relevant result #8
+INFO : Added relevant result #9
+INFO : Added relevant result #10
+INFO : Desired precision reached.

@@ -1,0 +1,119 @@
+./run.sh /home/ans2120/cs6111/proj1/src/lib
+INFO : Executing query [trainer]
+INFO : -- Result 1
+INFO : Title: Trainer - Wikipedia, the free encyclopedia
+INFO : Summary: An animal trainer who trains animals for obedience, tricks, and work. A horse trainer responsible for preparing a horse for races. ...
+INFO : URL: http://en.wikipedia.org/wiki/Trainer
+INFO : --
+INFO : -- Result 2
+INFO : Title: Trainer (aircraft) - Wikipedia, the free encyclopedia
+INFO : Summary: HAL HJT-36 jet trainer that will replace the HAL Kiran aircraft of the Indian ... Polish 3Xtrim 3X55 Trener ultralight trainer. ...
+INFO : URL: http://en.wikipedia.org/wiki/Trainer_(aircraft)
+INFO : --
+INFO : -- Result 3
+INFO : Title: Trainer - WoWWiki - Your guide to the World of Warcraft
+INFO : Summary: A trainer is a special type of NPC that gives out Class abilities and spells or ... 2 Trainer Examples. 3 Types of Trainers. 3.1 Class Trainers. 3.2 Primary ...
+INFO : URL: http://www.wowwiki.com/Trainer
+INFO : --
+INFO : -- Result 4
+INFO : Title: Jedi Trainer - Action Game from AddictingGames
+INFO : Summary: Jedi Trainer 2.2.1, a Action Game from AddictingGames: How strong is the force with you? Use your saber skills to destroy these drones, but don't get hit with their
+INFO : URL: http://www.addictinggames.com/jeditrainer221.html
+INFO : --
+INFO : -- Result 5
+INFO : Title: Choosing a Personal Trainer
+INFO : Summary: What you need to know about choosing a personal trainer from your About Exercise Guide ... A good trainer can help you set up a program that meets your goals ...
+INFO : URL: http://exercise.about.com/cs/forprofessionals/a/choosetrainer.htm
+INFO : --
+INFO : -- Result 6
+INFO : Title: Pokémon Trainer - Bulbapedia, the community-driven Pokémon encyclopedia
+INFO : Summary: For the character in Super Smash Bros. Brawl referred to as "Pokémon Trainer," see Red (game) ... Generation I-introduced trainer classes ...
+INFO : URL: http://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9mon_Trainer
+INFO : --
+INFO : -- Result 7
+INFO : Title: Leave No Trace :: Training :: Trainer Courses
+INFO : Summary: Trainer Courses. Awareness Workshops. Educational and Training Resources ... Download a copy of the Trainer Course Guidelines (PDF) ...
+INFO : URL: http://www.lnt.org/training/trainercourses/index.html
+INFO : --
+INFO : -- Result 8
+INFO : Title: Trainer News - Topix
+INFO : Summary: Local news for Trainer, PA continually updated from thousands of sources on the web. ... OSHA finds hazardous conditions at Trainer refinery ...
+INFO : URL: http://www.topix.com/city/trainer-pa
+INFO : --
+INFO : -- Result 9
+INFO : Title: trainer - Definition from the Merriam-Webster Online Dictionary
+INFO : Summary: Definition of trainer from the Merriam-Webster Online Dictionary with audio pronunciations, thesaurus, Word of the Day, and word games.
+INFO : URL: http://www.merriam-webster.com/dictionary/trainer
+INFO : --
+INFO : -- Result 10
+INFO : Title: trainer - Wiktionary
+INFO : Summary: trainer. Definition from Wiktionary, a free dictionary. Jump to: navigation, search ... German: Trainer m. Telugu: శిక్షకుడు (SikshakuDu) ...
+INFO : URL: http://en.wiktionary.org/wiki/trainer
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #1
+INFO : Executing query [animal trainer horse]
+INFO : -- Result 1
+INFO : Title: Animal training - Wikipedia, the free encyclopedia
+INFO : Summary: They decided to honor animal performers after a horse was killed in an on-set ... Dressage is a form of competitive animal training, specifically for horses. ...
+INFO : URL: http://en.wikipedia.org/wiki/Animal_training
+INFO : --
+INFO : -- Result 2
+INFO : Title: Animal Training - Minneapolis, St. Paul, Twin Cities - Shopping ...
+INFO : Summary: ... ratings and reviews for Animal Training and other businesses in Minneapolis, ... Animal Training , Horse Boarding &amp; Rental , Horse Care &amp; Management , Horse ...
+INFO : URL: http://pd.startribune.com/sp?aff=15&catId=10030420
+INFO : --
+INFO : -- Result 3
+INFO : Title: Animal Trainer
+INFO : Summary: Animal Trainer. Description. Have you ever seen re-runs of the show about the talking horse? ... animal owners and animals to discuss desired training results ...
+INFO : URL: http://www.schoolsintheusa.com/careerprofiles_details.cfm?carid=1451
+INFO : --
+INFO : -- Result 4
+INFO : Title: Sweetwater Ranch &amp; Animal Training - Lancaster, CA Horse Stables
+INFO : Summary: Sweetwater Ranch &amp; Animal Training - Horse Stables in Lancaster, CA. Get contact info, directions and more at YELLOWPAGES.COM
+INFO : URL: http://www.yellowpages.com/info-LMS53437866/Sweetwater-Ranch-Animal-Training
+INFO : --
+INFO : -- Result 5
+INFO : Title: MSP :: Farm Animals ::: Horses
+INFO : Summary: Farm Animal Training :: Horses ... MSP Enrollment / General Zoonotic Training / Farm Animal Training ... EHS Training / Office of Research Compliance ...
+INFO : URL: http://www.hehd.clemson.edu/MSP/farm_animal_training/farm_horses.htm
+INFO : --
+INFO : -- Result 6
+INFO : Title: Animal Actors
+INFO : Summary: Animal Training and Animal Actors. Dog training supplies. Horse training supplies. Books about dog training. Books about cat training.
+INFO : URL: http://www.miriamfields.com/animal_actors.html
+INFO : --
+INFO : -- Result 7
+INFO : Title: Animal Acupressure Courses Animal Therapy Canine Massage Training Horse ...
+INFO : Summary: Offering Animal Acupressure Courses, Animal Therapy, Canine Massage Training, Horse Massage, Massage ... The Tallgrass training program offers highly ...
+INFO : URL: http://www.animalacupressure.com/Page.aspx?ID=132
+INFO : --
+INFO : -- Result 8
+INFO : Title: Animal Care &amp; Training Degrees
+INFO : Summary: Interested in a career or training in Animal Care &amp; Training? ... Animal Care Specialist, Training Performance Horses, Equine Business Management, ...
+INFO : URL: http://www.onveon.com/trades-careers-degrees/animal-care-training/index.htm
+INFO : --
+INFO : -- Result 9
+INFO : Title: The Horse: Large Animal Emergency Rescue Training Offered in Kentucky
+INFO : Summary: USRider and Eastern Kentucky University (EKU) are partnering for the fifth annual large animal emergency rescue training course. As with previous years' training, ...
+INFO : URL: http://www.thehorse.com/ViewArticle.aspx?ID=12947&source=rss
+INFO : --
+INFO : -- Result 10
+INFO : Title: The Horse: USRider, EKU to Continue Large Animal Rescue Training
+INFO : Summary: USRider Equestrian Motor Plan has teamed up with Eastern Kentucky University (EKU) to conduct large animal rescue training for the second consecutive year. The ...
+INFO : URL: http://www.thehorse.com/ViewArticle.aspx?ID=6340
+INFO : --
+INFO : 10 results.
+INFO : Target precision 0.9 = 9 results
+INFO : Added relevant result #1
+INFO : Added relevant result #2
+INFO : Added relevant result #3
+INFO : Added relevant result #4
+INFO : Added relevant result #5
+INFO : Added relevant result #6
+INFO : Added relevant result #7
+INFO : Added relevant result #8
+INFO : Added relevant result #9
+INFO : Added relevant result #10
+INFO : Desired precision reached.
